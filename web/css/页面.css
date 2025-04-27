@@ -1,0 +1,132 @@
+/* 页面元素样式.css - 页面元素的通用样式 */
+
+/* 颜色变量 */
+:root {
+    --primary-color: #4CAF50; /* 主题色 */
+    --secondary-color: #f0f0f0; /* 次要颜色 */
+    --text-color: #333; /* 文本颜色 */
+    --border-color: #ccc; /* 边框颜色 */
+    --box-shadow-color: rgba(0, 0, 0, 0.2); /* 阴影颜色 */
+}
+
+/* 通用样式 */
+body {
+    font-family: sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* 顶部功能栏样式 */
+.一级-顶功能栏-顶级-body {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px var(--box-shadow-color); /* 添加阴影 */
+}
+
+/* 搜索框样式 */
+.二级-搜索-一级-顶功能栏 {
+    /* 可根据需要添加样式 */
+}
+
+.三级-搜索框-二级-搜索 input[type="text"] {
+    padding: 8px 12px; /* 增加内边距 */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    outline: none; /* 移除焦点边框 */
+    transition: border-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.三级-搜索框-二级-搜索 input[type="text"]:focus {
+    border-color: var(--primary-color); /* 焦点时改变边框颜色 */
+}
+
+/* 功能按钮样式 */
+.二级-功能按钮-一级-顶功能栏 {
+    /* 可根据需要添加样式 */
+}
+
+.三级-文档功能按钮-二级-功能按钮 button {
+    padding: 8px 16px; /* 增加内边距 */
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.三级-文档功能按钮-二级-功能按钮 button:hover {
+    background-color: darken(var(--primary-color), 10%); /* 鼠标悬停时加深颜色 */
+}
+
+/* 元素总容器样式 */
+.一级-元总-顶级-body {
+    padding: 20px;
+}
+
+/* 条目样式 */
+.条目 {
+    border: 1px solid var(--border-color);
+    margin-bottom: 10px; /* 增加间距 */
+    border-radius: 4px; /* 添加圆角 */
+    box-shadow: 0 1px 3px var(--box-shadow-color); /* 添加阴影 */
+    transition: box-shadow 0.3s ease; /* 添加过渡效果 */
+}
+
+.条目:hover {
+    box-shadow: 0 3px 7px var(--box-shadow-color); /* 鼠标悬停时改变阴影 */
+}
+
+.条目-标题 {
+    padding: 8px 12px; /* 增加内边距 */
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color); /* 添加底边框 */
+    font-weight: bold; /* 加粗字体 */
+}
+
+.条目-内容 {
+    padding: 12px; /* 增加内边距 */
+}
+
+/* 右键菜单样式 */
+.一级-右键菜单-顶级-body {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    box-shadow: 2px 2px 5px var(--box-shadow-color);
+    min-width: 150px;
+    border-radius: 4px; /* 添加圆角 */
+}
+
+.一级-右键菜单-顶级-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.一级-右键菜单-顶级-body li {
+    padding: 8px 12px; /* 增加内边距 */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+}
+
+.一级-右键菜单-顶级-body li:hover {
+    background-color: var(--secondary-color);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .一级-顶功能栏-顶级-body {
+        flex-direction: column; /* 垂直排列 */
+        align-items: stretch; /* 拉伸对齐 */
+    }
+
+    .二级-搜索-一级-顶功能栏,
+    .二级-功能按钮-一级-顶功能栏 {
+        margin-bottom: 10px; /* 增加间距 */
+    }
+}

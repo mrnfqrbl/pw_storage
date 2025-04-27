@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>密码</title>
+</head>
+<script src="/web/js/水印提示.js"></script>
+<script src="/web/js/api.js"></script>
+<script src="/web/js/右键菜单处理.js"></script>
+
+
+
+<script src="/web/js/条目填充.js"></script>
+<script src="/web/js/初始化.js"></script>
+<script src="/web/js/按钮绑定.js"></script>
+<link rel="stylesheet" href="/web/css/页面.css">
+<link rel="stylesheet" href="/web/css/右键菜单.css">
+
+
+<body>
+
+<!-- 顶部功能栏 -->
+<div class="一级-顶功能栏-顶级-body" id="一级-顶功能栏-顶级-body">
+    <div class="二级-搜索-一级-顶功能栏" id="二级-搜索-一级-顶功能栏">
+        <div class="三级-搜索框-二级-搜索" id="三级-搜索框-二级-搜索">
+            <input type="text" placeholder="搜索...">
+        </div>
+    </div>
+
+    <div class="二级-功能按钮-一级-顶功能栏" id="二级-功能按钮-一级-顶功能栏">
+        <div class="三级-合集功能按钮-二级-功能按钮" id="三级-合集功能按钮-二级-功能按钮">
+            <label for="合集选择框">选择合集：</label>
+            <select id="合集选择框">
+                <!-- 合集选项将在此处动态生成 -->
+            </select>
+        </div>
+
+        <div class="三级-文档功能按钮-二级-功能按钮" id="三级-文档功能按钮-二级-功能按钮">
+            <button id="添加文档">添加文档</button>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 元素总容器 -->
+<div class="一级-元总-顶级-body" id="一级-元总-顶级-body">
+    <!-- 动态添加的元素将在这里显示 -->
+</div>
+
+<!-- 右键菜单的 HTML 结构 -->
+<div class="一级-右键菜单-顶级-body" id="右键菜单" style="display: none; position: absolute; z-index: 1000;">
+    <ul>
+        <li id="编辑值">编辑值</li>
+        <li id="复制条目">复制条目</li>
+        <li id="删除条目">删除条目</li>
+    </ul>
+</div>
+
+
+</body>
+</html>
