@@ -1,17 +1,10 @@
-import inspect
-import json
-from typing import Dict, List, Any, get_type_hints
+from typing import Dict, List, Any
 
-from fastapi import APIRouter
-from loguru import logger
-from fastapi import Body, Query, Path, Header, Cookie, Form, File
-
-db路由= APIRouter()
-from fastapi.routing import APIRoute
-from inspect import signature, Signature
-from fastapi.params import Body, Query, Path, Header, Cookie, Form, File, Depends, Param
 from fastapi import APIRouter, Query, Depends, Body
+from loguru import logger
+
 from app.utils import 文档数据模型
+
 db路由= APIRouter()
 from app.api.封装api import api类
 # 定义依赖项
