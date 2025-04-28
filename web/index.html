@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>密码</title>
+    <link rel="icon" href="/web/ico/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/web/ico/favicon.ico" type="image/x-icon"> <!-- 兼容旧浏览器 -->
 </head>
+<script >window.app={}</script>
+
+<script src="/web/js/模糊算法.js"></script>
 <script src="/web/js/水印提示.js"></script>
 <script src="/web/js/api.js"></script>
 <script src="/web/js/右键菜单处理.js"></script>
@@ -13,6 +18,7 @@
 <script src="/web/js/条目填充.js"></script>
 <script src="/web/js/初始化.js"></script>
 <script src="/web/js/按钮绑定.js"></script>
+<script src="/web/js/搜索.js"></script>
 <link rel="stylesheet" href="/web/css/页面.css">
 <link rel="stylesheet" href="/web/css/右键菜单.css">
 
@@ -23,7 +29,7 @@
 <div class="一级-顶功能栏-顶级-body" id="一级-顶功能栏-顶级-body">
     <div class="二级-搜索-一级-顶功能栏" id="二级-搜索-一级-顶功能栏">
         <div class="三级-搜索框-二级-搜索" id="三级-搜索框-二级-搜索">
-            <input type="text" placeholder="搜索...">
+            <input type="text" placeholder="搜索..." id="文档搜索框">
         </div>
     </div>
 
@@ -52,8 +58,11 @@
 <div class="一级-右键菜单-顶级-body" id="右键菜单" style="display: none; position: absolute; z-index: 1000;">
     <ul>
         <li id="编辑值">编辑值</li>
-        <li id="复制条目">复制条目</li>
+        <div class="分割线"></div>
+        <li id="复制">复制</li>
+        <div class="分割线"></div>
         <li id="删除条目">删除条目</li>
+        <div class="分割线"></div>
     </ul>
 </div>
 

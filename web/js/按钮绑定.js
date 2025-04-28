@@ -10,7 +10,7 @@ class 按钮绑定 {
             return 按钮绑定.instance; // 如果已经存在实例，则直接返回
         }
 
-        this.api = api ? api : window.api; // 如果 api 存在则使用 api，否则使用 window.api
+        this.api = api ? api : window.app.api; // 如果 api 存在则使用 api，否则使用 window.api
 
         this.添加文档按钮 = document.getElementById('添加文档'); // 获取添加文档按钮
         this.元总容器 = document.getElementById('元素总容器'); // 获取元素总容器
@@ -54,9 +54,9 @@ class 按钮绑定 {
         const 表单 = document.createElement('form');
         表单.id = '新增文档表单';
 
-        // 2. 根据 window.新增文档模板 创建表单项
-        for (const 键 in window.新增文档模板) {
-            if (window.新增文档模板.hasOwnProperty(键)) {
+        // 2. 根据 window.app.新增文档模板 创建表单项
+        for (const 键 in window.app.新增文档模板) {
+            if (window.app.新增文档模板.hasOwnProperty(键)) {
                 const 标签 = document.createElement('label');
                 标签.textContent = `${键}:`;
                 标签.htmlFor = 键;
@@ -65,7 +65,7 @@ class 按钮绑定 {
                 输入框.type = 'text';
                 输入框.id = 键;
                 输入框.name = 键;
-                输入框.value = window.新增文档模板[键] || ''; // 默认值
+                输入框.value = window.app.新增文档模板[键] || ''; // 默认值
 
                 表单.appendChild(标签);
                 表单.appendChild(输入框);
@@ -80,8 +80,8 @@ class 按钮绑定 {
         确定按钮.addEventListener('click', () => {
             // 3.1 获取表单数据
             const 新条目数据 = {};
-            for (const 键 in window.新增文档模板) {
-                if (window.新增文档模板.hasOwnProperty(键)) {
+            for (const 键 in window.app.新增文档模板) {
+                if (window.app.新增文档模板.hasOwnProperty(键)) {
                     新条目数据[键] = document.getElementById(键).value;
                 }
             }
@@ -91,12 +91,13 @@ class 按钮绑定 {
             // this.元总容器.appendChild(新条目); // 将新条目添加到总容器中
 
             // 3.3 调用 api.后端交互
-            this.api.后端交互("增加条目", [{"合集名称":window.当前合集名称},{"新增文档": 新条目数据}])
+            this.api.后端交互("增加条目", [{"合集名称":window.app.当前合集名称},{"新增文档": 新条目数据}])
                 .then(结果 => {
                     // 3.4 处理 api.后端交互 的结果
                     if (结果 && 结果.结果 === '成功') {
                         // 成功的情况，可以留空，或者显示成功消息
                         console.log("条目添加成功！");
+
                     } else {
                         // 失败的情况，显示错误消息
                         console.error("条目添加失败！", 结果);
@@ -110,6 +111,7 @@ class 按钮绑定 {
 
             // 3.5 关闭悬浮窗
             document.body.removeChild(悬浮窗);
+            window.app.条目填充.软更新()
         });
 
         const 取消按钮 = document.createElement('button');
@@ -141,7 +143,7 @@ class 按钮绑定 {
 按钮绑定.instance = null;
 
 // 导出按钮绑定类
-window.按钮绑定 = 按钮绑定;
+window.app.按钮绑定 = 按钮绑定;
 
 // // 初始化函数
 // function 初始化按钮绑定(api) {
@@ -155,4 +157,4 @@ window.按钮绑定 = 按钮绑定;
 // }
 //
 // // 导出初始化函数
-// window.初始化按钮绑定 = 初始化按钮绑定;
+// window.app.初始化按钮绑定 = 初始化按钮绑定;

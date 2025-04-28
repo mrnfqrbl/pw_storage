@@ -318,9 +318,13 @@ class 上层数据操作(数据库操作):
             """
             return {键: 值 for 键, 值 in 数据.items() if 值}
         try:
+            最终更新内容 ={}
             更新内容 = 文档内容模型(**更新内容).model_dump()
-            更新内容 = 清除空值(更新内容)
-            logger.info(f"更新内容: {更新内容}")
+            最终更新内容 = 清除空值(更新内容)
+            # for 字段, 值 in 更新内容_清除空值.items():
+            #
+            #     最终更新内容[f"文档内容.{字段}"] = 值
+            logger.info(f"更新内容: {最终更新内容}")
         except ValidationError as e:
             logger.error(f"更新文档失败: 类型检测失败: {e}，合集: {合集名称}")
             return {"结果 ":"失败", "返回":"更新文档失败,更新内容不符合规则"}
@@ -331,20 +335,23 @@ class 上层数据操作(数据库操作):
 
 
         try:
-            result = await 合集对象.update_one(查询条件, {"$set": {"文档内容": 更新内容}})
-            更新成功 = result.modified_count > 0
-            if 更新成功:
-                logger.info(f"更新了 {result.modified_count} 个文档，合集: {合集名称}")
-                logger.info(f"uuid：{历史记录uuid}")
-                if 历史记录uuid:
-                    await self.更新历史记录状态(历史记录uuid, "成功", f"{合集名称}_历史记录")
-                    logger.info(f"历史记录状态跟新")
-                return {"结果":"成功","返回":f"修改了{result.modified_count}个条目"}
-            else:
-                logger.warning(f"未找到符合条件的文档或文档内容未改变，合集: {合集名称}")
-                if 历史记录uuid:
-                    await self.更新历史记录状态(历史记录uuid, "失败", f"{合集名称}_历史记录")
-                return {"结果":"失败","返回":"未找到符合条件的文档或文档内容未改变"}
+            for 字段, 值 in 最终更新内容.items():
+
+
+                result = await 合集对象.update_one(查询条件, {"$set": {f"文档内容.{字段}": 值}})
+                更新成功 = result.modified_count > 0
+                if 更新成功:
+                    logger.info(f"更新了 {result.modified_count} 个文档，合集: {合集名称}")
+                    logger.info(f"uuid：{历史记录uuid}")
+                    if 历史记录uuid:
+                        await self.更新历史记录状态(历史记录uuid, "成功", f"{合集名称}_历史记录")
+                        logger.info(f"历史记录状态跟新")
+                    return {"结果":"成功","返回":f"修改了{result.modified_count}个条目"}
+                else:
+                    logger.warning(f"未找到符合条件的文档或文档内容未改变，合集: {合集名称}")
+                    if 历史记录uuid:
+                        await self.更新历史记录状态(历史记录uuid, "失败", f"{合集名称}_历史记录")
+                    return {"结果":"失败","返回":"未找到符合条件的文档或文档内容未改变"}
 
         except Exception as e:
             logger.error(f"更新文档失败: {e}，合集: {合集名称}")

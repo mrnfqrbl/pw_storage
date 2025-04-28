@@ -23,7 +23,7 @@ const api = {
 
             // 存储接口列表
             this.接口列表 = 数据.接口列表;
-            window.接口列表 = 数据.接口列表;
+            window.app.接口列表 = 数据.接口列表;
 
 
             console.log("API 模块已初始化，基础URL:", apiURL);
@@ -40,7 +40,7 @@ const api = {
 
         try {
             // 1. 查找匹配的接口定义
-            const 匹配接口 = 接口列表.find(接口 => {
+            const 匹配接口 = window.app.接口列表.find(接口 => {
                 if (接口.路径 === 接收接口) {
                     return true; // 完全匹配
                 } else if (!接收接口.startsWith('/') && 接口.路径 === '/' + 接收接口) {
@@ -124,6 +124,8 @@ const api = {
             console.log("完整的 URL:", url.toString());
 
             console.log("发送请求的选项:", 请求选项);
+            console.log("发送请求的 URL:", url.toString());
+            console.log("发送请求的body",  请求选项.body);
             // 8. 发送请求
             const 响应 = await fetch(url.toString(), 请求选项);
 
@@ -164,8 +166,8 @@ const api = {
             if (接口.路径 === "/增加条目") {
                 接口.参数.forEach(参数 => {
                     if (参数.参数名 === "新增文档") {
-                        window.新增文档模板 = 参数.参数类型;
-                        console.log("创建全局对象 新增文档模板:", window.新增文档模板);
+                        window.app.新增文档模板 = 参数.参数类型;
+                        console.log("创建全局对象 新增文档模板:", window.app.新增文档模板);
                     }
                 });
             }
@@ -173,4 +175,4 @@ const api = {
     }
 };
 
-window.api = api; // 导出 api 对象，方便其他模块调用
+window.app.api = api; // 导出 api 对象，方便其他模块调用

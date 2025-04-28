@@ -2,10 +2,12 @@
 
 /* 右键菜单样式 */
 .一级-右键菜单-顶级-body {
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    min-width: 150px;
+    background-color: #333; /* 深色背景 */
+    border: 1px solid #555; /* 深色边框 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* 深色阴影 */
+    min-width: 180px; /* 增加最小宽度 */
+    border-radius: 6px; /* 更圆润的边角 */
+    padding: 5px 0; /* 增加顶部和底部内边距 */
 }
 
 .一级-右键菜单-顶级-body ul {
@@ -15,10 +17,20 @@
 }
 
 .一级-右键菜单-顶级-body li {
-    padding: 8px 12px;
+    padding: 10px 16px; /* 增加内边距 */
     cursor: pointer;
+    font-size: 14px; /* 调整字体大小 */
+    color: #eee; /* 浅色文本颜色 */
 }
 
 .一级-右键菜单-顶级-body li:hover {
-    background-color: #f0f0f0;
+    background-color: #555; /* 深色悬停背景色 */
+}
+
+/* 分割线 */
+.一级-右键菜单-顶级-body .分割线 {
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* 白色半透明分割线 */
+    margin: 1px auto; /* 增加分割线上下间距, 左右 auto 实现居中 */
+    width: 80%; /* 分割线宽度为右键菜单的 80% */
+    height: 1px; /* 分割线高度为 1px */
 }

@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const 右键菜单 = document.getElementById('右键菜单'); // 获取右键菜单元素
     const 编辑值按钮 = document.getElementById('编辑值');
-    const 复制条目按钮 = document.getElementById('复制条目');
+    const 复制条目按钮 = document.getElementById('复制');
     const 删除条目按钮 = document.getElementById('删除条目');
 
     // 检查是否成功获取了元素
@@ -90,6 +90,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 右键菜单.style.left = 客户端X + 'px';
                 右键菜单.style.display = 'block';
 
+                // 根据目标元素类型显示/隐藏删除按钮
+                if (目标元素.classList.contains('条目-内容') || 目标元素.parentNode.classList.contains('条目-内容')) {
+                    删除条目按钮.style.display = 'none'; // 隐藏删除按钮
+                } else {
+                    删除条目按钮.style.display = 'block'; // 显示删除按钮
+                }
+                if (目标元素.classList.contains('条目-标题')) {
+                    编辑值按钮.style.display = 'none'; // 隐藏编辑按钮
+                } else {
+                    编辑值按钮.style.display = 'block'; // 显示编辑按钮
+                }
                 console.log('显示右键菜单，位置：', 客户端X, 客户端Y);
             } else {
                 console.warn('目标元素不是 class 为 "条目-标题" 或 "条目-内容" 的元素，不显示右键菜单！');
@@ -101,18 +112,28 @@ document.addEventListener('DOMContentLoaded', function() {
             this.当前目标元素 = null; // 清空当前目标元素
         },
 
-        编辑值: function() {
+        编辑值: async function() {
             if (this.当前目标元素) {
                 let 当前值;
                 let 键名; // 用于存储键名
+
+                // 判断当前目标元素是否为 <p> 标签
                 if (this.当前目标元素.tagName === 'P') {
-                    const 文本内容 = this.当前目标元素.textContent;
-                    const 分割结果 = 文本内容.split(': ');
-                    键名 = 分割结果[0]; // 获取 <p> 标签中的键名
-                    当前值 = 分割结果[1]; // 获取 <p> 标签中的值
+                    // 获取 <p> 标签中的 <strong> 标签
+                    const strong元素 = this.当前目标元素.querySelector('strong');
+
+                    // 检查是否存在 <strong> 标签
+                    if (strong元素) {
+                        键名 = strong元素.textContent.slice(0, -1); // 获取 <strong> 标签的文本内容作为键名 (去掉冒号)
+                    } else {
+                        键名 = '未知键名'; // 如果没有 <strong> 标签，则使用默认键名
+                    }
+
+                    当前值 = this.当前目标元素.textContent.split(': ')[1]; // 获取 <p> 标签中的值
                 } else {
+                    // 如果当前目标元素不是 <p> 标签，则认为是标题
                     当前值 = this.当前目标元素.textContent;
-                    键名 = '标题'; // 如果是标题，则键名为 '标题'
+                    键名 = '名称'; // 如果是标题，则键名为 '名称'
                 }
 
                 const 新值 = prompt('请输入新的值:', 当前值);
@@ -137,18 +158,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
 
                     console.log('要更新的数据:', 更新数据); // 输出到控制台，方便查看
-
-                    // 在这里，你可以将 更新数据 发送到服务器或其他地方进行处理
-                    // 暂时什么也不做，只存储在变量中
-                    当前合集名称=window.当前合集名称
-                    更新结果=api.修改条目(合集名称=当前合集名称,修改内容=更新数据)
-
-                    // 更新界面显示
-                    if (this.当前目标元素.tagName === 'P') {
-                        this.当前目标元素.textContent = 键名 + ': ' + 新值; // 更新 <p> 标签中的值
+                    const 更新结果= await window.app.api.后端交互("修改条目",[{"合集名称":window.当前合集名称},{"修改内容": 更新数据}])
+                    console.log('更新结果:', 更新结果);
+                    const 最新内容 = await window.app.api.后端交互("查询条目",[{"合集名称":window.当前合集名称},{"查询条件": {"uuid":uuid}}]);
+                    console.log('最新内容:', 最新内容);
+                    console.log('键名:', 键名);
+                    最新值=最新内容[0]["文档内容"][键名];
+                    console.log('最新值:', 最新值);
+                    if (最新值 == 新值) {
+                        window.app.水印提示("更新成功");
                     } else {
-                        this.当前目标元素.textContent = 新值; // 更新标题
+                        window.app.水印提示("更新失败");
                     }
+                    await window.app.条目填充.软更新()
+
+
                 }
             }
             this.隐藏菜单();
@@ -164,29 +188,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 navigator.clipboard.writeText(条目值)
                     .then(() => {
-                        显示水印提示('条目已复制到剪贴板！'); // 使用水印提示
+                        window.app.水印提示('条目已复制到剪贴板！'); // 使用水印提示
                     })
                     .catch(err => {
                         console.error('复制失败: ', err);
-                        显示水印提示('复制失败，请检查浏览器设置或使用HTTPS。'); // 使用水印提示
+                        window.app.水印提示('复制失败，请检查浏览器设置或使用HTTPS。'); // 使用水印提示
                     });
             }
             this.隐藏菜单();
         },
 
-        删除条目: function() {
+        删除条目: async function() {
             if (this.当前目标元素) {
+                // 获取 UUID
+                let 条目元素;
                 if (this.当前目标元素.tagName === 'P') {
-                    this.当前目标元素.remove(); // 删除 <p> 元素
+                    let 条目内容元素 = this.当前目标元素.parentNode; // 获取父元素 <div class="条目-内容">
+                    条目元素 = 条目内容元素.parentNode; // 获取父元素 <div class="条目">
                 } else {
-                    this.当前目标元素.remove(); // 删除 "条目-标题" 或 "条目-内容" 元素
+                    条目元素 = this.当前目标元素.parentNode; // 获取父元素 <div class="条目">
                 }
+                const 条目uuid = 条目元素.dataset.uuid; // 获取 data-uuid
+
+                // 构建删除数据
+                const 删除数据 = [{
+                    合集名称: window.app.当前合集名称
+                }, {
+                    uuid: 条目uuid
+                }];
+
+                console.log('要删除的数据:', 删除数据); // 输出到控制台，方便查看
+
+                // 调用后端交互
+                window.app.api.后端交互("删除条目", 删除数据)
+
+                    .then(result => {
+                    });
+
+                // 从 DOM 中移除条目
+                await window.app.条目填充.软更新()
+
             }
             this.隐藏菜单();
         }
     };
 
     // 导出初始化函数 (如果需要)
-    window.右键菜单处理 = 右键菜单处理; // 为了方便其他模块调用
-    右键菜单处理.初始化();
+    window.app.右键菜单处理 = 右键菜单处理; // 为了方便其他模块调用
+    // 右键菜单处理.初始化();
 });
