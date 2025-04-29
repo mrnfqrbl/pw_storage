@@ -1,0 +1,142 @@
+/* 新增文档悬浮窗 - 容器样式 */
+.新增文档悬浮窗 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(25, 25, 25, 0.95);
+    padding: 35px;
+    border: 1px solid #666;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    color: #ddd;
+    text-align: left;
+    min-width: 450px;
+    max-width: 90%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: grid; /* 使用 Grid 布局 */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 自动调整列数，每列最小 250px */
+    gap: 20px; /* 列和行之间的间距 */
+}
+
+/* 新增文档悬浮窗 - 标题样式 */
+.新增文档悬浮窗 h2 {
+    color: #eee;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 300;
+    text-align: center;
+    grid-column: 1 / -1; /* 标题跨越所有列 */
+}
+
+/* 新增文档悬浮窗 - 表单组样式 */
+.新增文档悬浮窗 .form-group {
+    margin-bottom: 0; /* 移除表单组底部间距，由 Grid 布局控制 */
+}
+
+/* 新增文档悬浮窗 - 标签样式 */
+.新增文档悬浮窗 label {
+    display: block;
+    color: #bbb;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 300;
+}
+
+/* 新增文档悬浮窗 - 输入框和文本域样式 */
+.新增文档悬浮窗 input[type="text"],
+.新增文档悬浮窗 input[type="email"],
+.新增文档悬浮窗 input[type="password"],
+.新增文档悬浮窗 textarea {
+    width: 80%; /* 宽度占据单元格 */
+    padding: 16px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    box-sizing: border-box;
+    font-size: 17px;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    outline: none;
+    font-family: inherit;
+}
+
+/* 新增文档悬浮窗 - 输入框和文本域获得焦点时的样式 */
+.新增文档悬浮窗 input[type="text"]:focus,
+.新增文档悬浮窗 input[type="email"]:focus,
+.新增文档悬浮窗 input[type="password"]:focus,
+.新增文档悬浮窗 textarea:focus {
+    border-color: #888;
+    box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+}
+
+/* 新增文档悬浮窗 - 文本域样式 */
+.新增文档悬浮窗 textarea {
+    height: 160px;
+    resize: vertical;
+    grid-column: 1 / -1; /* 文本域跨越所有列 */
+}
+
+/* 新增文档悬浮窗 - 占位符文字样式 */
+.新增文档悬浮窗 input::placeholder,
+.新增文档悬浮窗 textarea::placeholder {
+    color: #999;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* 新增文档悬浮窗 - 按钮容器样式 */
+.新增文档悬浮窗 .button-container {
+    text-align: center;
+    margin-top: 30px;
+    grid-column: 1 / -1; /* 按钮容器跨越所有列 */
+}
+
+/* 新增文档悬浮窗 - 按钮样式 */
+.新增文档悬浮窗 button {
+    background-color: #0088cc;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin: 0 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 新增文档悬浮窗 - 按钮悬停样式 */
+.新增文档悬浮窗 button:hover {
+    background-color: #006699;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 新增文档悬浮窗 - 按钮禁用样式 */
+.新增文档悬浮窗 button:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+/* 新增文档悬浮窗 - 关闭按钮样式 (可选) */
+.新增文档悬浮窗 .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #bbb;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+/* 新增文档悬浮窗 - 关闭按钮悬停样式 */
+.新增文档悬浮窗 .close-button:hover {
+    color: #ddd;
+}

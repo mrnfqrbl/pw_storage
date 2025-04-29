@@ -14,7 +14,22 @@ async def get_api():
     api = api类.获取api实例() # 或者其他方式获取 api类 实例
     return api
 
+@db路由.get("/创建合集")
+async def 创建合集(
+        合集名称: str = Query(..., title="合集名称", description="要创建的合集名称"),  # 使用 Query 显式声明
+        api: api类 = Depends(get_api)
+):
+    """
+    创建合集接口。
 
+    Args:
+        合集名称: 要创建的合集名称 (查询参数).
+
+    Returns:
+        创建结果: 创建结果.
+    """
+    创建结果 = await api.数据操作实例.创建合集(合集名称)  # 调用你的数据操作函数
+    return 创建结果
 
 @db路由.get("/获取合集列表")
 async def 获取合集列表(api: api类 = Depends(get_api)):
@@ -203,6 +218,21 @@ async def 获取数据模型():
         "方法": "GET",
         "描述": "根路由，返回 Hello World",
         "参数": []
+    },
+    {
+        "路径":"/创建合集",
+        "方法": "POST",
+        "描述": "创建一个新的合集",
+        "参数": [
+            {
+                "参数名": "合集名称",
+                "参数类型": "str",
+                "参数位置": "query",
+                "描述": "要创建的合集名称"
+            }
+        ],
+
+
     },
     {
         "路径": "/获取合集列表",

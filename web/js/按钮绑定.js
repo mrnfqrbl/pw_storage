@@ -13,6 +13,8 @@ class 按钮绑定 {
         this.api = api ? api : window.app.api; // 如果 api 存在则使用 api，否则使用 window.api
 
         this.添加文档按钮 = document.getElementById('添加文档'); // 获取添加文档按钮
+        this.创建合集按钮 = document.getElementById('创建合集');
+
         this.元总容器 = document.getElementById('元素总容器'); // 获取元素总容器
 
         按钮绑定.instance = this; // 保存实例
@@ -27,6 +29,11 @@ class 按钮绑定 {
 
         // 初始化 window.新增文档模板
         this.初始化新增文档模板();
+        if (this.创建合集按钮){
+            this.创建合集按钮.addEventListener('click', this.弹出创建合集悬浮窗.bind(this));
+        } else {
+            console.error('未找到创建合集按钮，请确保按钮的 id 是 "创建合集"'); // 错误处理
+        }
     }
 
     async 初始化新增文档模板() {
@@ -35,21 +42,34 @@ class 按钮绑定 {
             console.warn("window.新增文档模板 未定义，已使用默认值。");
         }
     }
+    弹出创建合集悬浮窗() {
+        const 悬浮窗 = document.createElement('div');
+        悬浮窗.id = '创建合集悬浮窗';
 
+        const 表单 = document.createElement('form');
+        表单.id = '创建合集表单';
+        表单.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `;
+
+    }
     弹出新增文档悬浮窗() {
         // 1. 创建悬浮窗和表单
         const 悬浮窗 = document.createElement('div');
         悬浮窗.id = '新增文档悬浮窗';
-        悬浮窗.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid black;
-            z-index: 1000;
-        `;
+        悬浮窗.className = '新增文档悬浮窗';
+        // 悬浮窗.style.cssText = `
+        //     position: fixed;
+        //     top: 50%;
+        //     left: 50%;
+        //     transform: translate(-50%, -50%);
+        //     background-color: white;
+        //     padding: 20px;
+        //     border: 1px solid black;
+        //     z-index: 1000;
+        // `;
 
         const 表单 = document.createElement('form');
         表单.id = '新增文档表单';

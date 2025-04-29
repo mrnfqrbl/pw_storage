@@ -134,6 +134,7 @@ class 上层数据操作(数据库操作):
             self.普通合集列表.append(合集名称)
             logger.info(f"成功创建普通合集: {合集名称}")
         self.合集对象字典[合集名称] = self.数据库[合集名称]
+        return {"结果": "成功",  "合集名称": 合集名称}
 
     async def 获取最大序号(self, 合集名称: str,序号键:str) -> int:
         """
