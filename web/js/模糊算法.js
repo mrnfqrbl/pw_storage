@@ -1,5 +1,5 @@
-window.app = window.app || {};
-window.app.模糊算法 = {
+// window.app = window.app || {};
+const 模糊算法 = {
     默认JaroWinkler阈值: 0.8, // Jaro-Winkler 默认阈值 (更严格)
 
     jaroWinkler距离: function(字符串1, 字符串2, 阈值) {

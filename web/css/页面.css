@@ -1,108 +1,119 @@
 /* 页面.css - 页面元素的通用样式 */
 
-/* 颜色变量 */
+/* 颜色变量 *//* 默认暗色主题 */
 :root {
-    --primary-color: #64b5f6; /* 主题色 (浅蓝色) */
+    --primary-color: #4caf50; /* 主题色 (柔和绿色) */
     --secondary-color: #37474f; /* 深色次要颜色 (深灰色) */
-    --text-color: #eceff1; /* 浅色文本颜色 (亮灰色) */
-    --border-color: #455a64; /* 深色边框颜色 (中灰色) */
-    --box-shadow-color: rgba(0, 0, 0, 0.5); /* 深色阴影颜色 */
-    --hover-color: #546e7a; /* 深色悬停颜色 (深灰色) */
-    --background-color: #263238; /* 深色背景颜色 (深蓝灰色) */
-    --item-background-color: #37474f; /* 深色条目背景颜色 (深灰色) */
-    --transition-duration: 0.2s; /* 过渡动画时长 */
-    --card-background-color: #455a64; /* 卡片背景颜色 (中灰色) */
-    --card-border-color: #546e7a; /* 卡片边框颜色 (深灰色) */
+    --text-color: #f0f4f8; /* 浅色文本颜色 (亮灰色) */
+    --border-color: #546e7a; /* 较深的边框颜色 (灰蓝色) */
+    --box-shadow-color: rgba(0, 0, 0, 0.3); /* 深色阴影颜色 */
+    --hover-color: #607d8b; /* 悬停时的颜色 (蓝灰色) */
+    --background-color: #2e3b46; /* 背景颜色 (深灰蓝色) */
+    --item-background-color: #37474f; /* 条目背景颜色 (灰蓝色) */
+    --transition-duration: 0.3s; /* 过渡动画时长 */
+    --card-background-color: #455a64; /* 卡片背景颜色 (深灰蓝色) */
+    --card-border-color: #546e7a; /* 卡片边框颜色 (蓝灰色) */
     --font-family: "Roboto", sans-serif; /* 全局字体 */
-    --border-radius: 4px; /* 全局圆角 */
-    --line-height: 1.5; /* 全局行高 */
+    --border-radius: 6px; /* 全局圆角 */
+    --line-height: 1.6; /* 行高 */
+}
+
+/* 亮色主题 */
+.theme-light {
+    --primary-color: #2196f3; /* 主题色 (亮蓝色) */
+    --secondary-color: #607d8b; /* 灰蓝色次要颜色 */
+    --text-color: #263238; /* 深色文本颜色 */
+    --border-color: #cfd8dc; /* 较浅边框颜色 (浅灰色) */
+    --box-shadow-color: rgba(0, 0, 0, 0.1); /* 浅色阴影 */
+    --hover-color: #90a4ae; /* 深灰蓝色悬停颜色 */
+    --background-color: #e3f2fd; /* 浅蓝色背景 */
+    --item-background-color: #cfd8dc; /* 浅灰蓝色条目背景 */
+    --transition-duration: 0.3s; /* 过渡动画时长 */
+    --card-background-color: #e8f5e9; /* 浅绿色卡片背景 */
+    --card-border-color: #80cbc4; /* 卡片边框颜色 (绿色调) */
+    --font-family: "Roboto", sans-serif; /* 全局字体 */
+    --border-radius: 6px; /* 全局圆角 */
+    --line-height: 1.6; /* 行高 */
 }
 
 /* 通用样式 */
 *,
 *::before,
 *::after {
-    box-sizing: border-box; /* 统一盒模型 */
-    margin: 0; /* 移除默认外边距 */
-    padding: 0; /* 移除默认内边距 */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: var(--font-family); /* 全局字体 */
+    font-family: var(--font-family);
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    background-color: var(--background-color); /* 深色背景 */
-    transition: background-color var(--transition-duration) ease; /* 添加过渡效果 */
-    line-height: var(--line-height); /* 全局行高 */
+    background-color: var(--background-color);
+    transition: background-color var(--transition-duration) ease;
+    line-height: var(--line-height);
 }
 
+/* 链接样式 */
 a {
-    color: var(--primary-color); /* 链接颜色 */
-    text-decoration: none; /* 移除下划线 */
-    transition: color var(--transition-duration) ease; /* 添加过渡效果 */
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-duration) ease;
 }
 
 a:hover {
-    color: #81d4fa; /* 悬停时改变链接颜色 */
+    color: #82b1ff; /* 悬停时的链接颜色 */
 }
 
 /* 顶部功能栏样式 */
 .一级-顶功能栏-顶级-body {
-    background-color: var(--item-background-color); /* 深色背景 */
-    padding: 15px 20px; /* 增加内边距 */
+    background-color: var(--item-background-color);
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 3px var(--box-shadow-color); /* 添加阴影 */
-    border-bottom: 1px solid var(--border-color); /* 添加底边框 */
-    transition: background-color var(--transition-duration) ease; /* 添加过渡效果 */
+    box-shadow: 0 1px 3px var(--box-shadow-color);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-duration) ease;
 }
 
 /* 搜索框样式 */
-.二级-搜索-一级-顶功能栏 {
-    /* 可根据需要添加样式 */
-}
-
 .三级-搜索框-二级-搜索 input[type="text"] {
-    padding: 10px 16px; /* 增加内边距 */
+    padding: 10px 16px;
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius); /* 全局圆角 */
-    outline: none; /* 移除焦点边框 */
+    border-radius: var(--border-radius);
+    outline: none;
     transition: border-color var(--transition-duration) ease,
-    box-shadow var(--transition-duration) ease; /* 添加过渡效果 */
-    font-size: 14px; /* 调整字体大小 */
-    width: 250px; /* 设置宽度 */
-    background-color: #455a64; /* 深色背景 */
-    color: var(--text-color); /* 浅色文本 */
+    box-shadow var(--transition-duration) ease;
+    font-size: 14px;
+    width: 250px;
+    background-color: #3e5c66;
+    color: var(--text-color);
 }
 
 .三级-搜索框-二级-搜索 input[type="text"]:focus {
-    border-color: var(--primary-color); /* 焦点时改变边框颜色 */
-    box-shadow: 0 0 5px rgba(100, 181, 246, 0.5); /* 添加焦点阴影 */
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(100, 181, 246, 0.5);
 }
 
 /* 功能按钮样式 */
-.二级-功能按钮-一级-顶功能栏 {
-    /* 可根据需要添加样式 */
-}
-
 .三级-文档功能按钮-二级-功能按钮 button {
-    padding: 10px 20px; /* 增加内边距 */
+    padding: 10px 20px;
     background-color: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: var(--border-radius); /* 全局圆角 */
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color var(--transition-duration) ease,
-    box-shadow var(--transition-duration) ease; /* 添加过渡效果 */
-    font-size: 14px; /* 调整字体大小 */
-    box-shadow: 0 1px 3px var(--box-shadow-color); /* 添加阴影 */
+    box-shadow var(--transition-duration) ease;
+    font-size: 14px;
+    box-shadow: 0 1px 3px var(--box-shadow-color);
 }
 
 .三级-文档功能按钮-二级-功能按钮 button:hover {
-    background-color: #42a5f5; /* 悬停时加深颜色 */
-    box-shadow: 0 3px 7px var(--box-shadow-color); /* 悬停时加深阴影 */
+    background-color: #1976d2; /* 悬停时加深颜色 */
+    box-shadow: 0 3px 7px var(--box-shadow-color);
 }
 
 /* 合集选择框样式 */
@@ -139,9 +150,9 @@ a:hover {
     outline: none;
     transition: border-color var(--transition-duration) ease,
     box-shadow var(--transition-duration) ease;
-    appearance: none; /* 移除默认样式 */
-    -webkit-appearance: none; /* 兼容 Safari */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23eceff1' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); /* 自定义下拉箭头 */
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23eceff1' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 8px center;
     background-size: 16px;
@@ -160,82 +171,80 @@ a:hover {
 /* 条目样式 */
 .条目 {
     border: 1px solid var(--border-color);
-    margin-bottom: 15px; /* 增加间距 */
-    border-radius: var(--border-radius); /* 全局圆角 */
-    box-shadow: 0 1px 3px var(--box-shadow-color); /* 添加阴影 */
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px var(--box-shadow-color);
     transition: box-shadow var(--transition-duration) ease,
-    background-color var(--transition-duration) ease; /* 添加过渡效果 */
-    background-color: var(--item-background-color); /* 深色背景 */
-    color: var(--text-color); /* 浅色文本 */
-    overflow: hidden; /* 隐藏溢出内容 */
-    display: flex; /* 使用 Flexbox 布局 */
-    flex-direction: column; /* 垂直排列 */
+    background-color var(--transition-duration) ease;
+    background-color: var(--item-background-color);
+    color: var(--text-color);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .条目:hover {
-    box-shadow: 0 3px 7px var(--box-shadow-color); /* 鼠标悬停时改变阴影 */
-    background-color: var(--hover-color); /* 悬停时改变背景色 */
+    box-shadow: 0 3px 7px var(--box-shadow-color);
+    background-color: var(--hover-color);
 }
 
 .条目-标题 {
-    padding: 10px 16px; /* 增加内边距 */
-    background-color: var(--secondary-color); /* 深色背景 */
-    cursor: pointer;
-    border-bottom: 1px solid var(--card-border-color); /* 添加底边框 */
-    font-weight: 500; /* 调整字体粗细 */
-    font-size: 16px; /* 调整字体大小 */
-    border-top-left-radius: var(--border-radius); /* 全局圆角 */
-    border-top-right-radius: var(--border-radius); /* 全局圆角 */
-    transition: background-color var(--transition-duration) ease; /* 添加过渡效果 */
-    user-select: none; /* 禁止选中文字 */
+    padding: 10px 16px;
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+/* 单个内容项样式 */
+
+.单个内容项 {
+    padding: 4px 10px; /* 内边距，增加条目的间距 */
+    border-bottom: 1px solid var(--border-color); /* 下边框分隔项 */
+    font-size: 14px; /* 字体大小 */
+    line-height: 1.5; /* 行高，确保条目之间的间距 */
+    color: var(--text-color); /* 文本颜色 */
+    /*display: flex;*/
+    flex-direction: column; /* 垂直排列每一对字段 */
+    gap: 6px; /* 增加字段之间的间距 */
 }
 
-.条目-标题:hover {
-    background-color: var(--hover-color); /* 悬停时改变背景色 */
+/* 最后一项没有下边框 */
+.单个内容项:last-child {
+    border-bottom: none;
 }
 
-.条目-内容 {
-    padding: 16px; /* 增加内边距 */
-    font-size: 14px; /* 调整字体大小 */
-    line-height: var(--line-height); /* 全局行高 */
-    background-color: var(--card-background-color); /* 卡片背景色 */
-    border-radius: 0 0 var(--border-radius) var(--border-radius); /* 全局圆角 */
-    border-top: 1px solid var(--card-border-color); /* 顶部边框 */
-    flex-grow: 1; /* 内容区域自动填充剩余空间 */
+/* 每个字段项 */
+.单个内容项 div {
+    /*display: flex;*/
+    justify-content: flex-start; /* 确保标题和值从左侧开始 */
+    align-items: baseline; /* 字段名与值在垂直方向对齐 */
 }
 
-.条目-内容 p {
-    margin-bottom: 8px; /* 增加段落间距 */
-    padding: 8px 12px; /* 增加段落内边距 */
-    border-radius: var(--border-radius); /* 全局圆角 */
-    background-color: rgba(255, 255, 255, 0.05); /* 增加段落背景色 */
-    transition: background-color var(--transition-duration) ease; /* 添加过渡效果 */
+/* 内容项标题（例如“名称”, “应用”等） */
+.单个内容项 strong {
+    font-weight: bold;
+    margin-right: 8px; /* 标题和内容之间的间距 */
 }
 
-.条目-内容 p:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* 悬停时改变段落背景色 */
+/* 为每个条目内容添加不同颜色和背景的鼠标悬停效果 */
+.单个内容项:hover {
+    background-color: var(--hover-color); /* 悬停时背景色 */
+    cursor: pointer; /* 悬停时变为指针形状 */
 }
 
-.条目-内容 strong {
-    color: var(--primary-color); /* 强调文本颜色 */
-    font-weight: 600; /* 加粗强调文本 */
-    margin-right: 5px; /* 增加标签和内容之间的间距 */
-}
 
-/* 右键菜单样式 (重复，可以删除) */
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .一级-顶功能栏-顶级-body {
-        flex-direction: column; /* 垂直排列 */
-        align-items: stretch; /* 拉伸对齐 */
-    }
+/*!* 如果需要根据不同字段（如名称、账号等）进行不同的样式调整，可以根据具体情况进一步细化 *!*/
+/*.单个内容项 .名称 {*/
+/*    color: #81c784; !* 特定字段的颜色 *!*/
+/*}*/
 
-    .二级-搜索-一级-顶功能栏,
-    .二级-功能按钮-一级-顶功能栏 {
-        margin-bottom: 10px; /* 增加间距 */
-    }
+/*.单个内容项 .应用 {*/
+/*    color: #64b5f6; !* 特定字段的颜色 *!*/
+/*}*/
 
-    .三级-搜索框-二级-搜索 input[type="text"] {
-        width: 100%; /* 搜索框宽度100% */
-    }
-}
+/*.单个内容项 .账号 {*/
+/*    color: #ffb74d; !* 特定字段的颜色 *!*/
+/*}*/
+
+/*.单个内容项 .密码,*/
+/*.单个内容项 .邮箱 {*/
+/*    color: #e57373; !* 红色，用于警告信息 *!*/
+/*}*/

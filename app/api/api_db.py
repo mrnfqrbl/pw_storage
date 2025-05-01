@@ -1,3 +1,4 @@
+import os
 from typing import Dict, List, Any
 
 from fastapi import APIRouter, Query, Depends, Body
@@ -14,9 +15,10 @@ async def get_api():
     api = api类.获取api实例() # 或者其他方式获取 api类 实例
     return api
 
-@db路由.get("/创建合集")
+@db路由.post("/创建合集")
 async def 创建合集(
-        合集名称: str = Query(..., title="合集名称", description="要创建的合集名称"),  # 使用 Query 显式声明
+        请求体: Dict[str, Any] = Body(),
+
         api: api类 = Depends(get_api)
 ):
     """
@@ -28,6 +30,9 @@ async def 创建合集(
     Returns:
         创建结果: 创建结果.
     """
+    #输出请求体
+    合集名称= 请求体.get("合集名称",None)
+    logger.info(f"合集名称: {合集名称}")
     创建结果 = await api.数据操作实例.创建合集(合集名称)  # 调用你的数据操作函数
     return 创建结果
 
@@ -70,7 +75,7 @@ async def 查询条目(
 
     Args:
         合集名称: 要查询的合集名称 (查询参数).
-        查询条件: 查询条件 (JSON 格式，请求体).
+
 
     Returns:
         查询文档: 查询结果.
@@ -210,6 +215,52 @@ async def 获取数据模型():
 
 
 
+@db路由.get("/获取静态资源列表")
+async def 获取静态资源列表(api: api类 = Depends(get_api), 资源类型: str = Query(..., title="资源类型", description="要获取的资源类型")):
+    目录 = api.静态资源目录
+    if not os.path.exists(目录):
+        return {"错误": "静态资源目录不存在"}
+
+    def 获取资源列表(扩展名):
+        资源列表 = []
+        for 根目录, 子目录, 文件列表 in os.walk(目录):
+            for 文件 in 文件列表:
+                if 文件.endswith(扩展名):
+                    路径 = os.path.join(根目录, 文件)
+                    路径=路径.replace(目录, "")
+                    路径=路径.replace("\\", "/")
+
+                    路径="/web"+路径
+                    资源列表.append(路径)
+        return 资源列表
+
+    扩展名映射 = {
+        "js": ".js",
+        "css": ".css",
+        "html": ".html",
+        "ico": ".ico",
+        "png": ".png",
+        "jpg": ".jpg",
+        "gif": ".gif",
+        "svg": ".svg",
+        "json": ".json",
+        "xml": ".xml",
+        "txt": ".txt",
+        "md": ".md",
+
+    }
+
+    扩展名 = 扩展名映射.get(资源类型)
+    if 扩展名:
+        资源列表 = 获取资源列表(扩展名)
+        return {"资源列表": 资源列表}
+    else:
+        return {"错误": "不支持的资源类型"}
+
+
+
+
+
 
 # 手动构建接口信息
 接口列表数据 = [
@@ -227,7 +278,7 @@ async def 获取数据模型():
             {
                 "参数名": "合集名称",
                 "参数类型": "str",
-                "参数位置": "query",
+                "参数位置": "body",
                 "描述": "要创建的合集名称"
             }
         ],
@@ -353,6 +404,20 @@ async def 获取数据模型():
         "方法": "GET",
         "描述": "获取文档数据模型",
         "参数": []
+    },
+    {
+        "路径": "/获取静态资源列表",
+        "方法": "GET",
+        "描述": "获取所有接口列表",
+        "参数": [
+            {
+                "参数名": "类型",
+                "参数类型": "str",
+                "参数位置": "query",
+                "描述": "要获取的静态资源类型"
+            },
+
+        ]
     }
 ]
 

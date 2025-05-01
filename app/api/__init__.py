@@ -39,7 +39,7 @@ import logging
 #
 #         await self.app(scope, receive, send)
 
-async def 创建服务器():
+async def 创建服务器(静态资源目录, 路由路径):
     """
     创建并配置 FastAPI 服务器。
     """
@@ -48,7 +48,9 @@ async def 创建服务器():
     # api.add_middleware(CORSAllowAllMiddleware)
     api.include_router(db路由, prefix="/api")  # 包含数据库相关的路由
     api.include_router(web路由)  # 包含 Web 相关的路由
-    挂载资源(api)  # 挂载静态资源
+    api.静态资源目录 = 静态资源目录
+    print(f"静态资源目录: {静态资源目录}")
+    挂载资源(api,  静态资源目录,路由路径)  # 挂载静态资源
 
     # 创建 logging 对象http_logger  传递给服务器但是 http_logger的输出转发到logger
     logging.getLogger("uvicorn.access").handlers = [InterceptHandler()]

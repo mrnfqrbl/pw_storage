@@ -8,6 +8,7 @@ class api类(FastAPI):
     数据库连接url=os.environ.get("数据库连接url","mongodb://localhost:27019")
     def __init__(self, **x):
         super().__init__(**x)
+        self.静态资源目录 = None
         self.数据操作实例 = None  # 初始化数据操作实例
         self.文档数据模型 = None # 初始化文档数据模型
 

@@ -1,20 +1,35 @@
-// api.js - 负责与后端 API 的交互
 
-// 基础URL：如果留空，则使用当前页面URL
-// const 基础URL = 'http://127.0.0.1:8000';
-const 基础URL = '';
-// API URL：所有API请求都从这个URL开始
-// 如果基础URL值为空或不存在，则使用页面基础URL
-const apiURL = (基础URL ? 基础URL.replace(/\/+$/, '') : window.location.origin.replace(/\/+$/, '')) + '/api';
 
-const api = {
-    // 接口列表，用于存储从后端获取的接口信息
-    接口列表: [],
 
-    // 初始化函数 (从 /获取接口列表 并构建请求函数)
-    初始化: async function () {
+
+
+
+
+
+class api类  {
+    constructor({基础url, api接口}) {
+        // 如果未传入 api接口，则抛出错误
+        if (!api接口) {
+            throw new Error("api接口不能为空！");
+        }
+
+        // 如果基础url为空，使用当前页面的基础URL（例如 http://127.0.0.1:8000）
+        this.基础URL = 基础url ? 基础url.replace(/\/+$/, '') : window.location.origin;
+
+        // 去除 api接口 前缀的斜杠（防止双斜杠）
+        this.api接口 = api接口.replace(/^\/+/, '').replace(/\/+$/, '');
+
+        // 拼接最终URL
+        this.apiurl = this.基础URL + '/' + this.api接口;
+        this.apiurl = this.apiurl.replace(/\/+$/, '');
+        console.log("api实例已创建，apiURL:", this.apiurl);
+
+        // 初始化接口列表
+        this.接口列表 = [];
+    }
+    async 初始化() {
         try {
-            const 接口列表URL = apiURL + '/获取接口列表'; // 获取接口列表的URL
+            const 接口列表URL = this.apiurl + '/获取接口列表'; // 获取接口列表的URL
             const 响应 = await fetch(接口列表URL);
             if (!响应.ok) {
                 throw new Error(`获取接口列表失败: ${响应.status}`);
@@ -26,15 +41,15 @@ const api = {
             window.app.接口列表 = 数据.接口列表;
 
 
-            console.log("API 模块已初始化，基础URL:", apiURL);
+            // console.log("API 模块已初始化，apiURL:", this.apiurl);
 
 
         } catch (错误) {
             console.error('初始化 API 模块时出错:', 错误);
         }
-    },
-    // 后端交互函数
-    后端交互: async function (接收接口,参数列表) {
+
+    }
+    async 后端交互 (接收接口,参数列表) {
         // 接口列表 (你提供的接口定义)
 
 
@@ -55,7 +70,7 @@ const api = {
             // 2. 验证参数数量
             console.log("正在验证参数数量...");
 
-            console.log("匹配接口:", 匹配接口);
+            // console.log("匹配接口:", 匹配接口);
 
             if (匹配接口.参数.length !== 0) { // 只有当接口需要参数时才进行验证
                 if (参数列表.length !== 匹配接口.参数.length) {
@@ -97,12 +112,15 @@ const api = {
                 参数列表.forEach(参数 => {
                     for (const 参数名 in 参数) {
                         if (接口参数字典.hasOwnProperty(参数名)) {
+
                             const 参数位置 = 接口参数字典[参数名];
                             const 参数值 = 参数[参数名];
+                            console.log(`参数位置为 ${参数位置}，参数名: ${参数名}，参数值: ${参数值}`);
 
                             if (参数位置 === 'query') {
                                 queryParams.append(参数名, 参数值);
                             } else if (参数位置 === 'body') {
+                                console.log(`参数位置为 body，参数名: ${参数名}，参数值: ${参数值}`);
                                 bodyParams[参数名] = 参数值;
                             }
                         }
@@ -119,9 +137,9 @@ const api = {
             }
 
             // 7. 构建完整的 URL (包含 query 参数)
-            const url = new URL(apiURL + 匹配接口.路径);
+            const url = new URL(this.apiurl + 匹配接口.路径);
             url.search = queryParams.toString();
-            console.log("完整的 URL:", url.toString());
+            // console.log("完整的 URL:", url.toString());
 
             console.log("发送请求的选项:", 请求选项);
             console.log("发送请求的 URL:", url.toString());
@@ -142,12 +160,8 @@ const api = {
             console.error('请求失败:', 错误);
             throw 错误; //  重新抛出错误，让调用者处理
         }
-    },
-
-
-
-
-    发起请求: async function(请求) {
+    }
+    async 发起请求(请求){
         try {
             const 响应 = await fetch(请求);
             if (!响应.ok) {
@@ -159,9 +173,8 @@ const api = {
             console.error("发起请求时出错:", 错误);
             throw 错误; // 重新抛出错误，让调用者处理
         }
-    },
-    // 在初始化之后，遍历接口列表，查找 "增加条目" 接口，并创建全局对象
-    创建新增文档模板: async function() {
+    }
+    async 创建新增文档模板() {
         this.接口列表.forEach(接口 => {
             if (接口.路径 === "/增加条目") {
                 接口.参数.forEach(参数 => {
@@ -173,6 +186,11 @@ const api = {
             }
         });
     }
-};
 
-window.app.api = api; // 导出 api 对象，方便其他模块调用
+}
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+/* 全局表单样式 */
+.表单 {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* 每个表单项的容器样式 */
+.表单项 {
+    margin-bottom: 15px;
+}
+
+/* 文本输入项 */
+.文本输入项 input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.文本输入项 label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* 选择框项 */
+.选择框项 select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.选择框项 label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* 复选框项 */
+.复选框项 input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.复选框项 label {
+    font-weight: normal;
+}
+
+/* 单选框项 */
+.单选框项 input[type="radio"] {
+    margin-right: 10px;
+}
+
+.单选框项 label {
+    font-weight: normal;
+}
+
+/* 文本区域项 */
+.文本区域项 textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 120px;
+}
+
+.文本区域项 label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* 按钮项 */
+.按钮项 button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.按钮项 button:hover {
+    background-color: #0056b3;
+}

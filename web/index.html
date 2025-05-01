@@ -1,31 +1,131 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" >
 <head>
     <meta charset="UTF-8">
     <title>密码</title>
+
+
     <link rel="icon" href="/web/ico/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/web/ico/favicon.ico" type="image/x-icon"> <!-- 兼容旧浏览器 -->
 </head>
-<script >window.app={}</script>
-
-<script src="/web/js/模糊算法.js"></script>
-<script src="/web/js/水印提示.js"></script>
-<script src="/web/js/api.js"></script>
-<script src="/web/js/右键菜单处理.js"></script>
 
 
+<script type="module">
+    document.addEventListener('DOMContentLoaded', function () {
+        async function 获取静态文件列表(类型) {
+            const 静态文件获取接口 = "/api/获取静态资源列表";
+            // 构建查询参数
+            const 查询参数 = new URLSearchParams({
+                "资源类型": 类型
+            });
+            // 将查询参数拼接到 URL 后面
+            const 请求URL = `${静态文件获取接口}?${查询参数}`;
+            const 请求参数 = {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            return fetch(请求URL, 请求参数)
+                .then(response => response.json())
+                .then(data => {
+                    // 处理获取到的数据
+                    // console.log(data);
+                    return data;
+                })
+                .catch(error => {
+                    // 处理错误
+                    console.error("获取静态文件列表失败:", error);
+                });
+        }
 
-<script src="/web/js/条目填充.js"></script>
-<script src="/web/js/初始化.js"></script>
-<script src="/web/js/按钮绑定.js"></script>
-<script src="/web/js/搜索.js"></script>
-<link rel="stylesheet" href="/web/css/页面.css">
-<link rel="stylesheet" href="/web/css/右键菜单.css">
-<link rel="stylesheet" href="/web/css/悬浮窗.css">
+        // 异步调用获取 JS 和 CSS 资源
+        (async () => {
+            const js资源结果 = await 获取静态文件列表("js");
+            const css资源结果 = await 获取静态文件列表("css");
+
+            const js资源列表 = js资源结果.资源列表;
+            const css资源列表 = css资源结果.资源列表;
+
+            // 等待所有 JS 加载完成
+            let js加载完成 = 0;
+            const js加载总数 = js资源列表.length;
+
+            // 动态插入 JS 脚本
+            for (let i = 0; i < js资源列表.length; i++) {
+                let script = document.createElement('script');
+                script.src = js资源列表[i];
+
+                // 添加 load 事件监听，确保每个 JS 文件加载完成
+                script.addEventListener('load', function() {
+                    js加载完成++;
+
+                    // 如果所有 JS 文件都加载完成，初始化 app
+                    if (js加载完成 === js加载总数) {
+                        new app类();
+                    }
+                });
+
+                document.head.appendChild(script); // 你也可以放到 c
+            }
+
+            // 动态插入 CSS 样式
+            for (let i = 0; i < css资源列表.length; i++) {
+                let link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = css资源列表[i];
+                document.head.appendChild(link);
+            }
+        })();  // 修正了多余的闭合括号
+        function 切换主题() {
+            const body = document.body;
+            body.classList.toggle('theme-light');
+            // 可选：将当前主题保存到 localStorage 以便在刷新后保持状态
+            if (body.classList.contains('theme-light')) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 页面加载时检查 localStorage 中保存的主题
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('theme-light');
+            } else {
+                document.body.classList.remove('theme-light');
+            }
+        });
+
+        // 示例：点击按钮切换主题
+        document.getElementById('themeSwitchBtn').addEventListener('click', 切换主题);
+    });
+</script>
+
+
+
+<!--<script src="/web/js/app.js"></script>-->
+
+
+<!--<script src="/web/js/模糊算法.js"></script>-->
+<!--<script src="/web/js/水印提示.js"></script>-->
+<!--<script src="/web/js/api.js"></script>-->
+<!--<script src="/web/js/右键菜单处理.js"></script>-->
+
+
+
+<!--<script src="/web/js/条目填充.js"></script>-->
+<!--<script src="/web/js/初始化.js"></script>-->
+<!--<script src="/web/js/按钮绑定.js"></script>-->
+<!--<script src="/web/js/搜索.js"></script>-->
+<!--<link rel="stylesheet" href="/web/css/页面.css">-->
+<!--<link rel="stylesheet" href="/web/css/右键菜单.css">-->
+<!--<link rel="stylesheet" href="/web/css/悬浮窗.css">-->
 
 
 <body>
-
+<button id="themeSwitchBtn">切换主题</button>
 <!-- 顶部功能栏 -->
 <div class="一级-顶功能栏-顶级-body" id="一级-顶功能栏-顶级-body">
     <div class="二级-搜索-一级-顶功能栏" id="二级-搜索-一级-顶功能栏">

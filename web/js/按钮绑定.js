@@ -4,10 +4,12 @@
  * 按钮绑定类 (单例模式)
  * @param {object} api - 包含后端交互函数的对象
  */
-class 按钮绑定 {
+class 按钮绑定类 {
+
+    static instance = null;
     constructor(api) {
-        if (按钮绑定.instance) {
-            return 按钮绑定.instance; // 如果已经存在实例，则直接返回
+        if (按钮绑定类.instance) {
+            return 按钮绑定类.instance; // 如果已经存在实例，则直接返回
         }
 
         this.api = api ? api : window.app.api; // 如果 api 存在则使用 api，否则使用 window.api
@@ -17,10 +19,10 @@ class 按钮绑定 {
 
         this.元总容器 = document.getElementById('元素总容器'); // 获取元素总容器
 
-        按钮绑定.instance = this; // 保存实例
+        按钮绑定类.instance = this; // 保存实例
     }
 
-    初始化() {
+    async 初始化() {
         if (this.添加文档按钮) { // 确保按钮存在
             this.添加文档按钮.addEventListener('click', this.弹出新增文档悬浮窗.bind(this)); // 使用 bind 绑定事件处理函数
         } else {
@@ -117,6 +119,7 @@ class 按钮绑定 {
                     if (结果 && 结果.结果 === '成功') {
                         // 成功的情况，可以留空，或者显示成功消息
                         console.log("条目添加成功！");
+                        window.app.条目填充.软更新()
 
                     } else {
                         // 失败的情况，显示错误消息
@@ -131,7 +134,7 @@ class 按钮绑定 {
 
             // 3.5 关闭悬浮窗
             document.body.removeChild(悬浮窗);
-            window.app.条目填充.软更新()
+
         });
 
         const 取消按钮 = document.createElement('button');
@@ -151,30 +154,9 @@ class 按钮绑定 {
         document.body.appendChild(悬浮窗);
     }
 
-    // 示例：
-    创建条目(数据) {
-        const 条目元素 = document.createElement('div');
-        条目元素.textContent = `条目: ${JSON.stringify(数据)}`; // 显示所有数据
-        return 条目元素;
-    }
+
+
+
+
+
 }
-
-// 静态属性，用于保存单例实例
-按钮绑定.instance = null;
-
-// 导出按钮绑定类
-window.app.按钮绑定 = 按钮绑定;
-
-// // 初始化函数
-// function 初始化按钮绑定(api) {
-//     // 创建按钮绑定实例 (只会创建一个)
-//     const 按钮绑定实例 = new 按钮绑定(api);
-//
-//     // 在页面加载完成后初始化按钮绑定
-//     document.addEventListener('DOMContentLoaded', function() {
-//         按钮绑定实例.初始化();
-//     });
-// }
-//
-// // 导出初始化函数
-// window.app.初始化按钮绑定 = 初始化按钮绑定;
