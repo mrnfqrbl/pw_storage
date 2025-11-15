@@ -47,14 +47,13 @@ class 按钮绑定类 {
     弹出创建合集悬浮窗() {
         const 悬浮窗 = document.createElement('div');
         悬浮窗.id = '创建合集悬浮窗';
+        const 表单参数= [{type:'text',id:'合集名称',label:'合集名称', name:'合集名称', placeholder:'请输入合集名称'},
+            
+            ]
+        const 表单=window.app.表单控制器.创建表单对象("创建合集表单",表单参数)
+        悬浮窗.appendChild(表单)
 
-        const 表单 = document.createElement('form');
-        表单.id = '创建合集表单';
-        表单.style.cssText = `
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        `;
+
 
     }
     弹出新增文档悬浮窗() {

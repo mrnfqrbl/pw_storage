@@ -13,6 +13,7 @@ class app类{
         this.条目填充 =new 条目填充类();
         this.右键菜单处理 =new 右键菜单处理类();
         this.表单控制器=new 表单控制器类();
+        this.搜索框 =new 搜索框类();
 
 
 

@@ -116,7 +116,7 @@ class 条目填充类 {
             const 条目存在 = 新条目数据.find(数据 => 数据.uuid === 元素.dataset.uuid);
             if (!条目存在) {
                 this.元总容器.removeChild(元素);
-                console.log('删除条目:', 元素.dataset.uuid);
+                // console.log('删除条目:', 元素.dataset.uuid);
             }
         });
 

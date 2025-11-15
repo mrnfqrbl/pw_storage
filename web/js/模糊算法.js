@@ -89,9 +89,9 @@ const 模糊算法 = {
         const 包含中文 = /[\u4e00-\u9fa5]/.test(字符串1 + 字符串2); // 检查是否包含中文
 
         if (包含中文) {
-            动态阈值 = Math.max(1, Math.floor(Math.max(长度1, 长度2) / 3)); //中文阈值
+            动态阈值 = Math.max(0, Math.floor(Math.max(长度1, 长度2) / 3)); //中文阈值
         } else {
-            动态阈值 = Math.max(1, Math.floor(Math.max(长度1, 长度2) / 5)); //英文阈值
+            动态阈值 = Math.max(0, Math.floor(Math.max(长度1, 长度2) / 5)); //英文阈值
         }
 
         // 如果没有传入阈值，则使用动态阈值
