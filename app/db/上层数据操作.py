@@ -54,10 +54,12 @@ class 上层数据操作(数据库操作):
             logger.error(f"连接数据库失败: {e}")
             raise
         return 类
+    #pass
     async def 获取数据库对象(self):
         if self.数据库 is None:
             self.数据库 = await self.连接数据库()
         return self.数据库
+    #pass
     async def 连接数据库(self):
         """
         连接到 MongoDB 数据库并获取所有合集信息。
@@ -65,7 +67,7 @@ class 上层数据操作(数据库操作):
         await super().连接数据库()  # 调用父类的连接数据库方法
         await self.初始化合集列表()
 
-
+    #pass
     async def 初始化合集列表(self):
         """
         获取数据库中所有合集，并将其分为普通合集和历史记录合集。
@@ -95,7 +97,7 @@ class 上层数据操作(数据库操作):
             logger.error(f"初始化合集列表失败: {e}")
             raise
 
-
+    #pass
     async def 获取合集对象(self, 合集名称: str):
         """
         根据合集名称获取合集对象。如果合集不存在，则自动创建。
@@ -118,7 +120,7 @@ class 上层数据操作(数据库操作):
             except Exception as e:
                 logger.error(f"自动创建合集 {合集名称} 失败: {e}")
                 return None
-
+    #pass
     async def 创建合集(self, 合集名称: str):
         """
         创建一个新的合集。
@@ -135,7 +137,7 @@ class 上层数据操作(数据库操作):
             logger.info(f"成功创建普通合集: {合集名称}")
         self.合集对象字典[合集名称] = self.数据库[合集名称]
         return {"结果": "成功",  "合集名称": 合集名称}
-
+    #pass
     async def 获取最大序号(self, 合集名称: str,序号键:str) -> int:
         """
         获取指定合集中最大的序号。
